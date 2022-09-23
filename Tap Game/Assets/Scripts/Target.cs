@@ -5,8 +5,8 @@ using UnityEngine;
 public class Target : MonoBehaviour
 {
     // Velocidade dos objetos
-    private float minSpeed = 12f;
-    private float maxSpeed = 16f;
+    private float minSpeed = 14f;
+    private float maxSpeed = 19f;
     private float maxTorque = 10f;
 
     // Local que o objeto será criado
@@ -20,6 +20,7 @@ public class Target : MonoBehaviour
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
+        transform.position = RandomSpawnPos();
         rigidbody.AddForce(RandomForce(), ForceMode.Impulse);
         rigidbody.AddTorque(RandomTorque(), RandomTorque(), RandomTorque(), ForceMode.Impulse);
     }
@@ -43,5 +44,15 @@ public class Target : MonoBehaviour
     private Vector3 RandomSpawnPos()
     {
         return new Vector3(Random.Range(-xRange, xRange), ySpawnPos);
+    }
+
+    private void OnMouseDown() 
+    {
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other) 
+    {
+        Destroy(gameObject);
     }
 }
