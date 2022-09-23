@@ -49,10 +49,19 @@ public class Target : MonoBehaviour
     private void OnMouseDown() 
     {
         Destroy(gameObject);
+
+        // incrementa pontuação
+        if (this.tag == "GoodTarget")
+        {
+            GameManager.score += 10;
+            // incrementa tempo de jogo
+        }
+
+        // decrementa tempo de jogo
     }
 
-    private void OnTriggerEnter(Collider other) 
-    {
-        Destroy(gameObject);
-    }
+    // private void OnTriggerEnter(Collider other) 
+    // {
+    //     Destroy(gameObject);
+    // }
 }
