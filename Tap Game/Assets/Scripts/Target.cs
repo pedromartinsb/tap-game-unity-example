@@ -53,16 +53,16 @@ public class Target : MonoBehaviour
         Destroy(gameObject);
 
         // incrementa pontuação
-        if (this.tag == "GoodTarget" && GameManager.time > 0)
+        if (this.tag == "GoodTarget" && GameManager.timer > 0)
         {
             GameManager.score += 10;
-            GameManager.time += 10;
+            GameManager.timer += 10;
         }
 
         // decrementa tempo de jogo
-        if (this.tag == "BadTarget" && GameManager.time > 0)
+        if (this.tag == "BadTarget" && GameManager.timer > 0)
         {
-            GameManager.time -= 10;
+            GameManager.timer -= 10;
         }
     }
 

@@ -6,13 +6,15 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static int score = 0;
-    private static float time = 0f;
+    public static float timer = 0f;
 
     [SerializeField, Tooltip("Define os itens do jogo")]
     private List<GameObject> targets;
 
-    [SerializeField, Tooltip("Informe o score na HUD")]
+    [SerializeField, Tooltip("Informa o score na HUD")]
     private TMP_Text hudScore;
+    [SerializeField, Tooltip("Informa o timer na HUD")]
+    private TMP_Text hudTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -26,13 +28,13 @@ public class GameManager : MonoBehaviour
         UpdateHud();
 
         // diminui o tempo de jogo
-        time -= Time.deltaTime;
+        timer -= Time.deltaTime;
     }
 
     private void StartGame()
     {
         // tempo que o jogador poderá jogar
-        GameManager.time = 500;
+        GameManager.timer = 50;
 
         // inicia o Spawn dos itens
         StartCoroutine(SpawnTargets());
@@ -47,11 +49,16 @@ public class GameManager : MonoBehaviour
         {
             hudScore.text = "SCORE: " + GameManager.score;
         }
+
+        if (hudTimer != null)
+        {
+            hudTimer.text = GameManager.timer > 0 ? "TIMER: " + (int) GameManager.timer : "TIMER: " + 0;
+        }
     }
 
     private IEnumerator SpawnTargets()
     {
-        while (GameManager.time > 0)
+        while (GameManager.timer > 0)
         {
             yield return new WaitForSeconds(1f);
             int index = Random.Range(0, targets.Count);
