@@ -23,6 +23,8 @@ public class Target : MonoBehaviour
         transform.position = RandomSpawnPos();
         rigidbody.AddForce(RandomForce(), ForceMode.Impulse);
         rigidbody.AddTorque(RandomTorque(), RandomTorque(), RandomTorque(), ForceMode.Impulse);
+
+        Destroy(gameObject, 5f);
     }
 
     // Update is called once per frame
@@ -51,13 +53,17 @@ public class Target : MonoBehaviour
         Destroy(gameObject);
 
         // incrementa pontuação
-        if (this.tag == "GoodTarget")
+        if (this.tag == "GoodTarget" && GameManager.time > 0)
         {
             GameManager.score += 10;
-            // incrementa tempo de jogo
+            GameManager.time += 10;
         }
 
         // decrementa tempo de jogo
+        if (this.tag == "BadTarget" && GameManager.time > 0)
+        {
+            GameManager.time -= 10;
+        }
     }
 
     // private void OnTriggerEnter(Collider other) 

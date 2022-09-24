@@ -6,6 +6,7 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static int score = 0;
+    private static float time = 0f;
 
     [SerializeField, Tooltip("Define os itens do jogo")]
     private List<GameObject> targets;
@@ -23,10 +24,16 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         UpdateHud();
+
+        // diminui o tempo de jogo
+        time -= Time.deltaTime;
     }
 
     private void StartGame()
     {
+        // tempo que o jogador poderá jogar
+        GameManager.time = 500;
+
         // inicia o Spawn dos itens
         StartCoroutine(SpawnTargets());
 
@@ -44,7 +51,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator SpawnTargets()
     {
-        while (true)
+        while (GameManager.time > 0)
         {
             yield return new WaitForSeconds(1f);
             int index = Random.Range(0, targets.Count);
